@@ -45,8 +45,10 @@ public class Main {
 
         for(int i=0; i<length; i++) {
             sequenceCounter++;
-            if (i+1 == length || stringToCompress.charAt(i) != stringToCompress.charAt(i + 1))
-                compressedString = compressedString + stringToCompress.charAt(i) + sequenceCounter;
+            if (i+1 == length || stringToCompress.charAt(i) !=
+                    stringToCompress.charAt(i + 1))
+                compressedString = compressedString + stringToCompress.charAt(i)
+                        + sequenceCounter;
             sequenceCounter=0;
         }
         return compressedString;
@@ -55,8 +57,8 @@ public class Main {
     /**
      * Decompresses a given string.
      *
-     * The decompression process is done by duplicating each sequence of characters
-     * according to the number which appears after the sequence.
+     * The decompression process is done by duplicating each sequence of
+     * characters according to the number which appears after the sequence.
      *
      * It is guaranteed that the string is a legal compressed string.
      *
@@ -69,9 +71,11 @@ public class Main {
         int length = compressedString.length();
 
         for(int i=0; i<length; i++) {
-            if(!(compressedString.charAt(i)>='a'&&compressedString.charAt(i)<='z')) {
+            if(!(compressedString.charAt(i)>='a'&&
+                    compressedString.charAt(i)<='z')) {
                 for(int j=compressedString.charAt(i); j>0; j--)
-                    decompressedString = decompressedString + compressedString.charAt(i-1);
+                    decompressedString = decompressedString +
+                            compressedString.charAt(i-1);
             }
         }
 
@@ -88,8 +92,10 @@ public class Main {
      */
     public static double calculateTax(int salary) {
         double tax = 0.0;
-        double taxPercentageL1=0.1; double taxPercentageL2=0.14;  double taxPercentageL3=0.2;// L stands for Level
-        double taxPercentageL4=0.31; double taxPercentageL5=0.35;  double taxPercentageL6=0.5;
+        double taxPercentageL1=0.1; double taxPercentageL2=0.14;
+        double taxPercentageL3=0.2;// L stands for Level
+        double taxPercentageL4=0.31; double taxPercentageL5=0.35;
+        double taxPercentageL6=0.5;
         int taxFactor=5000;
         int maxTaxSalary=25000;
         int taxLevel=salary/taxFactor;
@@ -99,22 +105,30 @@ public class Main {
                 tax = difference * taxPercentageL1;
                 break;
             case 1:
-                tax = taxFactor * taxPercentageL1 + difference * taxPercentageL2;
+                tax = taxFactor * taxPercentageL1+ difference * taxPercentageL2;
                 break;
             case 2:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2)+difference*taxPercentageL3;
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2)+
+                        difference*taxPercentageL3;
                 break;
             case 3:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3)+ difference*taxPercentageL4;
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
+                        taxPercentageL3)+ difference*taxPercentageL4;
                 break;
             case 4:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3+taxPercentageL4)+difference*taxPercentageL5;
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
+                        taxPercentageL3+taxPercentageL4)
+                        +difference*taxPercentageL5;
                 break;
             case 5:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3+taxPercentageL4+taxPercentageL5)+difference*taxPercentageL6;
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
+                        taxPercentageL3+taxPercentageL4+taxPercentageL5)
+                        +difference*taxPercentageL6;
                 break;
             default:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3+taxPercentageL4+taxPercentageL5)+(salary-maxTaxSalary)*taxPercentageL6;
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
+                        taxPercentageL3+taxPercentageL4+taxPercentageL5)
+                        +(salary-maxTaxSalary)*taxPercentageL6;
 
         }
         return tax;
@@ -142,7 +156,8 @@ public class Main {
         for (int i = 0; i < numberOfStringsToCompress; i++) {
             String stringToCompress = scanner.nextLine();
             String compressedString = compressString(stringToCompress);
-            System.out.println("The compressed version of " + stringToCompress + " is " + compressedString);
+            System.out.println("The compressed version of " + stringToCompress
+                    + " is " + compressedString);
         }
 
         // Tests for part B2
@@ -152,7 +167,8 @@ public class Main {
         for (int i = 0; i < numberOfDecompressedStrings; i++) {
             String compressedString = scanner.nextLine();
             String decompressedString = decompressString(compressedString);
-            System.out.println("The decompressed version of " + compressedString + " is " + decompressedString);
+            System.out.println("The decompressed version of " + compressedString
+                    + " is " + decompressedString);
         }
 
         // Tests for both part B1 and B2
@@ -164,7 +180,8 @@ public class Main {
             String compressedString = compressString(stringToCompress);
             String decompressedString = decompressString(compressedString);
             boolean isEqual = stringToCompress.equals(decompressedString);
-            System.out.println("decompress(compress(" + stringToCompress + ")) == " + stringToCompress + "? " + isEqual);
+            System.out.println("decompress(compress(" + stringToCompress
+                    + ")) == " + stringToCompress + "? " + isEqual);
         }
 
         // Tests for part C
@@ -173,7 +190,8 @@ public class Main {
         for (int i = 0; i < numberOfSalaries; i++) {
             int salary = scanner.nextInt();
             double tax = calculateTax(salary);
-            System.out.println("The tax for salary of " + salary + "₪ is " + tax + "₪");
+            System.out.println("The tax for salary of " + salary + "₪ is "
+                    + tax + "₪");
         }
     }
 }
