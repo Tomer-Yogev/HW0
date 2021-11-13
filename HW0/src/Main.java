@@ -70,13 +70,38 @@ public class Main {
      */
     public static double calculateTax(int salary) {
         double tax = 0.0;
+        double taxPercentageL1=0.1; double taxPercentageL2=0.14;  double taxPercentageL3=0.2;// L stands for Level
+        double taxPercentageL4=0.31; double taxPercentageL5=0.35;  double taxPercentageL6=0.5;
+        int taxFactor=5000;
+        int maxTaxSalary=25000;
+        int taxLevel=salary/taxFactor;
+        int difference= (salary - taxLevel*taxFactor);
+        switch (taxLevel) {
+            case 0:
+                tax = tax + difference * taxPercentageL1;
+                break;
+            case 1:
+                tax = taxFactor * taxPercentageL1 + difference * taxPercentageL2;
+                break;
+            case 2:
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2)+difference*taxPercentageL3;
+                break;
+            case 3:
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3)+ difference*taxPercentageL4;
+                break;
+            case 4:
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3+taxPercentageL4)+difference*taxPercentageL5;
+                break;
+            case 5:
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3+taxPercentageL4+taxPercentageL5)+difference*taxPercentageL6;
+                break;
+            default:
+                tax = taxFactor *(taxPercentageL1+taxPercentageL2+taxPercentageL3+taxPercentageL4+taxPercentageL5)+(salary-maxTaxSalary)*taxPercentageL6;
 
-        /*
-        TODO: Your code for part B2 is here...
-        Note: you may change the given code, but you must not change the signature of the method.
-         */
-
+        }
         return tax;
+    }
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
