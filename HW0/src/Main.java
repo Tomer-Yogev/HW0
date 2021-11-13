@@ -71,8 +71,10 @@ public class Main {
         int length = compressedString.length();
 
         for(int i=0; i<length; i++) {
-            if(!(compressedString.charAt(i)>='a'&&
-                    compressedString.charAt(i)<='z')) {
+            if(!((compressedString.charAt(i)>='a'&&
+                    compressedString.charAt(i)<='z')||
+                    (compressedString.charAt(i)>='A'&&
+                            compressedString.charAt(i)<='Z'))) {
                 for(int j=compressedString.charAt(i); j>0; j--)
                     decompressedString = decompressedString +
                             compressedString.charAt(i-1);
