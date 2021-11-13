@@ -96,7 +96,7 @@ public class Main {
         int difference= (salary - taxLevel*taxFactor);
         switch (taxLevel) {
             case 0:
-                tax = tax + difference * taxPercentageL1;
+                tax = difference * taxPercentageL1;
                 break;
             case 1:
                 tax = taxFactor * taxPercentageL1 + difference * taxPercentageL2;
