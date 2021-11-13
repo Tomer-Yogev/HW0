@@ -11,9 +11,19 @@ public class Main {
      * @param grade The grade
      */
     public static void gradeMessage(int grade) {
-        /*
-        TODO: Your code for part A is here...
-         */
+        
+        switch (grade/10) {
+            case (0):
+                System.out.println("Excellent");
+            case (9):
+                System.out.println("Great");
+            case (8):
+                System.out.println("Very Good");
+            case (7):
+                System.out.println("Good");
+            default:
+                System.out.println("OK");
+        }
     }
 
     /**
@@ -28,13 +38,17 @@ public class Main {
      * @return The compressed version of the string
      */
     public static String compressString(String stringToCompress) {
+        
         String compressedString = "";
+        int length = stringToCompress.length();
+        int sequenceCounter = 0;
 
-        /*
-        TODO: Your code for part B1 is here...
-        Note: you may change the given code, but you must not change the signature of the method.
-         */
-
+        for(int i=0; i<length; i++) {
+            sequenceCounter++;
+            if (i+1 == length || stringToCompress.charAt(i) != stringToCompress.charAt(i + 1))
+                compressedString = compressedString + stringToCompress.charAt(i) + sequenceCounter;
+            sequenceCounter=0;
+        }
         return compressedString;
     }
 
@@ -50,12 +64,16 @@ public class Main {
      * @return The decompressed string
      */
     public static String decompressString(String compressedString) {
+        
         String decompressedString = "";
+        int length = compressedString.length();
 
-        /*
-        TODO: Your code for part B2 is here...
-        Note: you may change the given code, but you must not change the signature of the method.
-         */
+        for(int i=0; i<length; i++) {
+            if(!(compressedString.charAt(i)>='a'&&compressedString.charAt(i)<='z')) {
+                for(int j=compressedString.charAt(i); j>0; j--)
+                    decompressedString = decompressedString + compressedString.charAt(i-1);
+            }
+        }
 
         return decompressedString;
     }
