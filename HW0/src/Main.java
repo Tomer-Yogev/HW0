@@ -13,7 +13,7 @@ public class Main {
     public static void gradeMessage(int grade) {
         
         switch (grade/10) {
-            case (0):
+            case (10):
                 System.out.println("Excellent");
             case (9):
                 System.out.println("Great");
