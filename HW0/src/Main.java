@@ -15,12 +15,16 @@ public class Main {
         switch (grade/10) {
             case (10):
                 System.out.println("Excellent");
+                break;
             case (9):
                 System.out.println("Great");
+                break;
             case (8):
                 System.out.println("Very Good");
+                break;
             case (7):
                 System.out.println("Good");
+                break;
             default:
                 System.out.println("OK");
         }
@@ -46,10 +50,11 @@ public class Main {
         for(int i=0; i<length; i++) {
             sequenceCounter++;
             if (i+1 == length || stringToCompress.charAt(i) !=
-                    stringToCompress.charAt(i + 1))
+                    stringToCompress.charAt(i + 1)) {
                 compressedString = compressedString + stringToCompress.charAt(i)
                         + sequenceCounter;
-            sequenceCounter=0;
+                sequenceCounter = 0;
+            }
         }
         return compressedString;
     }
@@ -66,22 +71,30 @@ public class Main {
      * @return The decompressed string
      */
     public static String decompressString(String compressedString) {
-        
-        String decompressedString = "";
-        int length = compressedString.length();
 
-        for(int i=0; i<length; i++) {
-            if(!((compressedString.charAt(i)>='a'&&
-                    compressedString.charAt(i)<='z')||
-                    (compressedString.charAt(i)>='A'&&
-                            compressedString.charAt(i)<='Z'))) {
-                for(int j=compressedString.charAt(i); j>0; j--)
-                    decompressedString = decompressedString +
-                            compressedString.charAt(i-1);
+        StringBuilder decompressedString = new StringBuilder();
+        String temp = "";
+        int countConsecutive = 0;
+        for (int i=0; i < compressedString.length(); i++){
+            if(compressedString.charAt(i)<='9' &&
+                    compressedString.charAt(i)>='0'){
+                countConsecutive = countConsecutive*10 +
+                        compressedString.charAt(i) - '0';
+                if (i+1 < compressedString.length() &&
+                        ((compressedString).charAt(i+1)<='9' &&
+                                compressedString.charAt(i+1)>='0')){
+                    continue;
+                }
+                for(int k =0; k < countConsecutive; k++){
+                    decompressedString.append(temp);
+                }
+                temp = "";
+                countConsecutive = 0;
             }
+            else
+                temp = temp + compressedString.charAt(i);
         }
-
-        return decompressedString;
+        return decompressedString.toString();
     }
 
     /**
@@ -94,48 +107,43 @@ public class Main {
      */
     public static double calculateTax(int salary) {
         double tax = 0.0;
-        double taxPercentageL1=0.1; double taxPercentageL2=0.14;
-        double taxPercentageL3=0.2;// L stands for Level
-        double taxPercentageL4=0.31; double taxPercentageL5=0.35;
-        double taxPercentageL6=0.5;
+        double[] taxPercentages={0.1,0.14,0.2,0.31,0.35,0.5};
         int taxFactor=5000;
         int maxTaxSalary=25000;
         int taxLevel=salary/taxFactor;
         int difference= (salary - taxLevel*taxFactor);
         switch (taxLevel) {
             case 0:
-                tax = difference * taxPercentageL1;
+                tax = difference * taxPercentages[0];
                 break;
             case 1:
-                tax = taxFactor * taxPercentageL1+ difference * taxPercentageL2;
+                tax = taxFactor * taxPercentages[0]+ difference * taxPercentages[1];
                 break;
             case 2:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2)+
-                        difference*taxPercentageL3;
+                tax = taxFactor *(taxPercentages[0]+taxPercentages[1])+
+                        difference*taxPercentages[2];
                 break;
             case 3:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
-                        taxPercentageL3)+ difference*taxPercentageL4;
+                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
+                        taxPercentages[2])+ difference*taxPercentages[3];
                 break;
             case 4:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
-                        taxPercentageL3+taxPercentageL4)
-                        +difference*taxPercentageL5;
+                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
+                        taxPercentages[2]+taxPercentages[3])
+                        +difference*taxPercentages[4];
                 break;
             case 5:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
-                        taxPercentageL3+taxPercentageL4+taxPercentageL5)
-                        +difference*taxPercentageL6;
+                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
+                        taxPercentages[2]+taxPercentages[3]+taxPercentages[4])
+                        +difference*taxPercentages[5];
                 break;
             default:
-                tax = taxFactor *(taxPercentageL1+taxPercentageL2+
-                        taxPercentageL3+taxPercentageL4+taxPercentageL5)
-                        +(salary-maxTaxSalary)*taxPercentageL6;
+                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
+                        taxPercentages[2]+taxPercentages[3]+taxPercentages[4])
+                        +(salary-maxTaxSalary)*taxPercentages[5];
 
         }
         return tax;
-    }
-
     }
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -193,7 +201,7 @@ public class Main {
             int salary = scanner.nextInt();
             double tax = calculateTax(salary);
             System.out.println("The tax for salary of " + salary + "₪ is "
-                    + tax + "₪");
+                    + String.format("%.2f", tax) + "₪");
         }
     }
 }
