@@ -202,7 +202,7 @@ public class Main {
             int salary = scanner.nextInt();
             double tax = calculateTax(salary);
             System.out.println("The tax for salary of " + salary + "₪ is "
-                    + String.format("%.2f", tax) + "₪");
+                    + tax + "₪");
         }
     }
 }
