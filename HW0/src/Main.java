@@ -72,27 +72,28 @@ public class Main {
      */
     public static String decompressString(String compressedString) {
 
-        StringBuilder decompressedString = new StringBuilder();
-        String temp = "";
-        int countConsecutive = 0;
-        for (int i=0; i < compressedString.length(); i++){
-            if(compressedString.charAt(i)<='9' &&
-                    compressedString.charAt(i)>='0'){
-                countConsecutive = countConsecutive*10 +
-                        compressedString.charAt(i) - '0';
-                if (i+1 < compressedString.length() &&
-                        ((compressedString).charAt(i+1)<='9' &&
-                                compressedString.charAt(i+1)>='0')){
-                    continue;
+        String decompressedString = "", letterSequence = "";
+        int sequenceCounter = 0;
+        for(int i=0; i<compressedString.length(); i++){
+            if((compressedString.charAt(i)>='0')&&
+                    (compressedString.charAt(i)<='9')){
+                sequenceCounter = compressedString.charAt(i)-'0';
+                for(int j=i+1;j<compressedString.length();j++)
+                    if((compressedString.charAt(j)>='0')&&
+                            (compressedString.charAt(j)<='9'))
+                        sequenceCounter = sequenceCounter*10 +
+                                compressedString.charAt(j)-'0';
+                    else
+                        break;
+                while(sequenceCounter>0) {
+                    decompressedString += letterSequence;
+                    sequenceCounter--;
                 }
-                for(int k =0; k < countConsecutive; k++){
-                    decompressedString.append(temp);
-                }
-                temp = "";
-                countConsecutive = 0;
+                letterSequence = "";
             }
             else
-                temp = temp + compressedString.charAt(i);
+                letterSequence = letterSequence + compressedString.charAt(i);
+
         }
         return decompressedString.toString();
     }
