@@ -201,8 +201,9 @@ public class Main {
         for (int i = 0; i < numberOfSalaries; i++) {
             int salary = scanner.nextInt();
             double tax = calculateTax(salary);
+            double roundOff = Math.round(tax*100)/(double)100;
             System.out.println("The tax for salary of " + salary + "₪ is "
-                    + tax + "₪");
+                    + roundOff + "₪");
         }
     }
 }
