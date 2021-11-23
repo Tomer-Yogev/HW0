@@ -11,7 +11,7 @@ public class Main {
      * @param grade The grade
      */
     public static void gradeMessage(int grade) {
-        
+
         switch (grade/10) {
             case (10):
                 System.out.println("Excellent");
@@ -42,7 +42,7 @@ public class Main {
      * @return The compressed version of the string
      */
     public static String compressString(String stringToCompress) {
-        
+
         String compressedString = "";
         int length = stringToCompress.length();
         int sequenceCounter = 0;
@@ -118,7 +118,7 @@ public class Main {
                 tax = difference * taxPercentages[0];
                 break;
             case 1:
-                tax = taxFactor * taxPercentages[0]+ difference * taxPercentages[1];
+                tax = taxFactor *taxPercentages[0]+difference*taxPercentages[1];
                 break;
             case 2:
                 tax = taxFactor *(taxPercentages[0]+taxPercentages[1])+
