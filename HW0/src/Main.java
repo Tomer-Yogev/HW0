@@ -95,7 +95,7 @@ public class Main {
                 letterSequence = letterSequence + compressedString.charAt(i);
 
         }
-        return decompressedString.toString();
+        return decompressedString;
     }
 
     /**
