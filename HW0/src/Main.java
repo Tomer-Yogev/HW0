@@ -109,39 +109,28 @@ public class Main {
     public static double calculateTax(int salary) {
         double tax = 0.0;
         double[] taxPercentages={0.1,0.14,0.2,0.31,0.35,0.5};
+        double[] taxSums={0.1,0.24,0.44,0.75,1.1,1.6};
         int taxFactor=5000;
         int maxTaxSalary=25000;
         int taxLevel=salary/taxFactor;
-        int difference= (salary - taxLevel*taxFactor);
-        switch (taxLevel) {
+        int maxBracket = salary/maxTaxSalary;
+        double bracketDifference = salary - (taxFactor*taxLevel);
+        int difference = salary - maxTaxSalary;
+
+        switch (maxBracket) {
             case 0:
-                tax = difference * taxPercentages[0];
-                break;
-            case 1:
-                tax = taxFactor *taxPercentages[0]+difference*taxPercentages[1];
-                break;
-            case 2:
-                tax = taxFactor *(taxPercentages[0]+taxPercentages[1])+
-                        difference*taxPercentages[2];
-                break;
-            case 3:
-                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
-                        taxPercentages[2])+ difference*taxPercentages[3];
-                break;
-            case 4:
-                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
-                        taxPercentages[2]+taxPercentages[3])
-                        +difference*taxPercentages[4];
-                break;
-            case 5:
-                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
-                        taxPercentages[2]+taxPercentages[3]+taxPercentages[4])
-                        +difference*taxPercentages[5];
+                switch(taxLevel) {
+                    case 0:
+                        tax = bracketDifference * taxPercentages[taxLevel];
+                        break;
+                    default:
+                        tax = taxFactor * taxSums[taxLevel-1] +
+                                bracketDifference * taxPercentages[taxLevel];
+                }
                 break;
             default:
-                tax = taxFactor *(taxPercentages[0]+taxPercentages[1]+
-                        taxPercentages[2]+taxPercentages[3]+taxPercentages[4])
-                        +(salary-maxTaxSalary)*taxPercentages[5];
+                tax = taxFactor *taxSums[taxSums.length-2] +
+                        difference*taxPercentages[taxPercentages.length-1];
 
         }
         return tax;
@@ -201,9 +190,9 @@ public class Main {
         for (int i = 0; i < numberOfSalaries; i++) {
             int salary = scanner.nextInt();
             double tax = calculateTax(salary);
-            double roundOff = Math.round(tax*100)/(double)100;
+            double roundOffTax = (tax*100)/100;
             System.out.println("The tax for salary of " + salary + "₪ is "
-                    + roundOff + "₪");
+                    + roundOffTax + "₪");
         }
     }
 }
